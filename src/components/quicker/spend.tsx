@@ -1,4 +1,4 @@
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 export interface SpendItem {
   id: string;
@@ -91,26 +91,24 @@ export function CategoryBreakdown({ items }: { items: SpendItem[] }) {
     <div className="rounded-xl border border-border bg-card p-6">
       <h3 className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Where it goes</h3>
       <div className="mt-4 grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
-        <div className="h-[180px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie data={data} dataKey="value" innerRadius={52} outerRadius={80} paddingAngle={3} stroke="none">
-                {data.map((entry, index) => (
-                  <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip
-                contentStyle={{
-                  background: "var(--popover)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "10px",
-                  color: "var(--popover-foreground)",
-                  fontSize: "12px",
-                }}
-                formatter={(value: number) => money(value, currency)}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+        <div className="flex h-[180px] items-center justify-center">
+          <PieChart width={180} height={180}>
+            <Pie data={data} dataKey="value" innerRadius={52} outerRadius={80} paddingAngle={3} stroke="none">
+              {data.map((entry, index) => (
+                <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip
+              contentStyle={{
+                background: "var(--popover)",
+                border: "1px solid var(--border)",
+                borderRadius: "10px",
+                color: "var(--popover-foreground)",
+                fontSize: "12px",
+              }}
+              formatter={(value: number) => money(value, currency)}
+            />
+          </PieChart>
         </div>
         <ul className="space-y-2">
           {data.map((entry, index) => (
