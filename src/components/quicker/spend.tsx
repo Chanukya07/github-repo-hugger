@@ -1,4 +1,3 @@
-import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 export interface SpendItem {
   id: string;
@@ -18,6 +17,8 @@ const CHART_COLORS = [
   "var(--chart-3)",
   "var(--chart-4)",
   "var(--chart-5)",
+  "var(--chart-1)",
+  "var(--chart-2)",
 ];
 
 export function money(amount: number, currency = "USD") {
@@ -76,6 +77,17 @@ export function SpendStats({ items }: { items: SpendItem[] }) {
   );
 }
 
+function conicGradient(data: { name: string; value: number }[], grand: number) {
+  if (!grand) return "var(--muted)";
+  let angle = 0;
+  const stops = data.map((entry, index) => {
+    const start = angle;
+    angle += (entry.value / grand) * 360;
+    return `${CHART_COLORS[index % CHART_COLORS.length]} ${start}deg ${angle}deg`;
+  });
+  return `conic-gradient(${stops.join(", ")})`;
+}
+
 export function CategoryBreakdown({ items }: { items: SpendItem[] }) {
   const totals = new Map<string, number>();
   for (const item of items) {
@@ -92,23 +104,17 @@ export function CategoryBreakdown({ items }: { items: SpendItem[] }) {
       <h3 className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Where it goes</h3>
       <div className="mt-4 grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
         <div className="flex h-[180px] items-center justify-center">
-          <PieChart width={180} height={180}>
-            <Pie data={data} dataKey="value" innerRadius={52} outerRadius={80} paddingAngle={3} stroke="none">
-              {data.map((entry, index) => (
-                <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{
-                background: "var(--popover)",
-                border: "1px solid var(--border)",
-                borderRadius: "10px",
-                color: "var(--popover-foreground)",
-                fontSize: "12px",
-              }}
-              formatter={(value: number) => money(value, currency)}
-            />
-          </PieChart>
+          <div
+            className="relative h-[168px] w-[168px] rounded-full"
+            style={{ background: conicGradient(data, grand) }}
+          >
+            <div className="absolute inset-[26px] flex flex-col items-center justify-center rounded-full bg-card">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                Total
+              </span>
+              <span className="numeric text-sm text-foreground">{money(grand, currency)}</span>
+            </div>
+          </div>
         </div>
         <ul className="space-y-2">
           {data.map((entry, index) => (
