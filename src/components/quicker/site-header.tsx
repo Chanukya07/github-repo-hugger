@@ -25,6 +25,13 @@ export function SiteHeader({ actions }: { actions?: ReactNode }) {
           >
             Demo
           </Link>
+          <Link
+            to="/setup"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "text-foreground" }}
+          >
+            Setup
+          </Link>
           {actions}
         </nav>
       </div>

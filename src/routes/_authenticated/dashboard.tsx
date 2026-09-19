@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -221,7 +221,11 @@ function Dashboard() {
           ) : (
             <span className="text-muted-foreground">
               Connect Gmail with read-only access to build your ledger. Quicker can never send or
-              delete mail.
+              delete mail. Connection trouble? See the{" "}
+              <Link to="/setup" className="text-primary underline-offset-4 hover:underline">
+                setup checklist
+              </Link>
+              .
             </span>
           )}
         </div>
