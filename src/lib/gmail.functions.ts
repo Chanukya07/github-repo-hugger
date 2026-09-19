@@ -12,8 +12,8 @@ const GOOGLE_SCOPES = [
 
 export interface MailboxStatus {
   connected: boolean;
-  reconnectRequired?: boolean;
-  emailAddress?: string;
+  reconnectRequired?: boolean | undefined;
+  emailAddress?: string | undefined;
 }
 
 export const getMailboxStatus = createServerFn({ method: "GET" })
