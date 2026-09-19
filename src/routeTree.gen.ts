@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DemoRouteImport } from './routes/demo'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SetupRouteImport } from './routes/setup'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as OauthGoogleMailReturnRouteImport } from './routes/oauth.google-mail.return'
 
@@ -36,9 +38,19 @@ const DemoRoute = DemoRouteImport.update({
   path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SetupRoute = SetupRouteImport.update({
   id: '/setup',
   path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -56,7 +68,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/privacy': typeof PrivacyRoute
   '/setup': typeof SetupRoute
+  '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/oauth/google-mail/return': typeof OauthGoogleMailReturnRoute
 }
@@ -64,7 +78,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/privacy': typeof PrivacyRoute
   '/setup': typeof SetupRoute
+  '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/oauth/google-mail/return': typeof OauthGoogleMailReturnRoute
 }
@@ -74,7 +90,9 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/demo': typeof DemoRoute
+  '/privacy': typeof PrivacyRoute
   '/setup': typeof SetupRoute
+  '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/oauth/google-mail/return': typeof OauthGoogleMailReturnRoute
 }
@@ -84,7 +102,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/demo'
+    | '/privacy'
     | '/setup'
+    | '/terms'
     | '/dashboard'
     | '/oauth/google-mail/return'
   fileRoutesByTo: FileRoutesByTo
@@ -92,7 +112,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/demo'
+    | '/privacy'
     | '/setup'
+    | '/terms'
     | '/dashboard'
     | '/oauth/google-mail/return'
   id:
@@ -101,7 +123,9 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/demo'
+    | '/privacy'
     | '/setup'
+    | '/terms'
     | '/_authenticated/dashboard'
     | '/oauth/google-mail/return'
   fileRoutesById: FileRoutesById
@@ -111,7 +135,9 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   DemoRoute: typeof DemoRoute
+  PrivacyRoute: typeof PrivacyRoute
   SetupRoute: typeof SetupRoute
+  TermsRoute: typeof TermsRoute
   OauthGoogleMailReturnRoute: typeof OauthGoogleMailReturnRoute
 }
 
@@ -145,11 +171,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/setup': {
       id: '/setup'
       path: '/setup'
       fullPath: '/setup'
       preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/dashboard': {
@@ -185,7 +225,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   DemoRoute: DemoRoute,
+  PrivacyRoute: PrivacyRoute,
   SetupRoute: SetupRoute,
+  TermsRoute: TermsRoute,
   OauthGoogleMailReturnRoute: OauthGoogleMailReturnRoute,
 }
 export const routeTree = rootRouteImport
