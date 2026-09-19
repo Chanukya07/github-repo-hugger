@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Lock, Mail, Sparkles, Receipt } from "lucide-react";
 import { SiteHeader } from "@/components/quicker/site-header";
+import { SiteFooter } from "@/components/quicker/site-footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -146,12 +147,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-border py-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 text-xs text-muted-foreground">
-          <span>Quicker — Gmail spend intelligence</span>
-          <span>AI output can be inaccurate. Always check the source email.</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
